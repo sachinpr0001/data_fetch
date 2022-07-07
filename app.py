@@ -24,6 +24,8 @@ def main():
         return response
     except SQLAlchemyError as e:
         print(e)
+def hello(number : int) -> int:
+    return number
 
 time.sleep(1)
 end_time = datetime.now()
