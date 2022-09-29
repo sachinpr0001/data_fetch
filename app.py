@@ -2,10 +2,9 @@ from flask import Flask, json, render_template
 import pandas as pd
 import sqlalchemy
 from sqlalchemy.exc import SQLAlchemyError
-from datetime import datetime
-import time
+from time import perf_counter()
 app = Flask(__name__)
-start_time = datetime.now()
+start_time = perf_counter()
 engine = sqlalchemy.create_engine("oracle://system:admin@localhost:1521/xe", arraysize=1000)    # return dbcon
 
 @app.route('/')
@@ -27,12 +26,7 @@ def main():
 def hello(number : int) -> int:
     return number
 
-time.sleep(1)
-end_time = datetime.now()
-diff = end_time - start_time
-time_taken = diff.seconds + diff.microseconds/1000000
-print('The time taken to fetch data from Oracle and send it to Flask is ', time_taken , 'seconds.')
+print('The time taken to fetch data from Oracle and send it to Flask is ', perf_counter() - start_time , 'seconds.')
 
 if __name__ == '__main__':
 	app.run(debug=True)
-
